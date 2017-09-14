@@ -50,6 +50,10 @@ class Request {
     return $this->infos;
   }
 
+  public function isEmpty() {
+    return $this->empty;
+  }
+
   public static function fetch(RequestBuilder $request) {
     return (new Request($request))->getContent();
   }
