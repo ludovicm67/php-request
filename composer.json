@@ -1,0 +1,25 @@
+{
+  "name": "ludovicm67/request",
+  "description": "Perform a request",
+  "type": "library",
+  "require-dev": {
+    "phpunit/phpunit": "^6.3"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ludovicm67",
+      "email": "ludovicmuller1@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ludovicm67\\Request\\": "src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^7.0",
+    "ext-curl": "^7.0"
+  }
+}

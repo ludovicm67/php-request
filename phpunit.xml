@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phpunit verbose="true" colors="true" bootstrap="./vendor/autoload.php">
+  <php>
+    <ini name="error_reporting" value="-1" />
+    <ini name="display_errors" value="1" />
+    <ini name="xdebug.scream" value="0" />
+  </php>
+  <testsuites>
+    <testsuite name="Tests">
+      <directory>./tests</directory>
+    </testsuite>
+  </testsuites>
+  <filter>
+    <whitelist proceessUncoveredFromWhitelist="true">
+      <directory suffic=".php">src/</directory>
+    </whitelist>
+  </filter>
+  <logging>
+    <log type="coverage-html" target="./coverage" />
+  </logging>
+</phpunit>
