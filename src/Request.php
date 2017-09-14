@@ -42,6 +42,10 @@ class Request {
     return $this->content;
   }
 
+  public function getInfo($key) {
+    return $this->infos[$key];
+  }
+
   public function getInfos() {
     return $this->infos;
   }
