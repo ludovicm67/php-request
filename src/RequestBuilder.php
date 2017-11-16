@@ -17,12 +17,19 @@ class RequestBuilder {
   private $ssl_verifyhost = 0;
   private $ssl_verifypeer = false;
 
-  public function __construct(string $url = '', $options = []) {
+  /**
+   * @param string $url
+   * @param array $options
+   **/
+  public function __construct($url = '', $options = []) {
     $this->url = $url;
     $this->setOptions($options);
   }
 
-  private function parseOptions(array $options) {
+  /**
+   * @param array $options
+   **/
+  private function parseOptions($options) {
     $options_keys = [
       'followlocation',
       'encoding',
@@ -44,7 +51,10 @@ class RequestBuilder {
     }
   }
 
-  public function setOptions(array $options) {
+  /**
+   * @param array $options
+   **/
+  public function setOptions($options) {
     if (!empty($options)) $this->parseOptions($options);
     return $this;
   }
@@ -65,7 +75,10 @@ class RequestBuilder {
     ];
   }
 
-  public function setUrl(string $url) {
+  /**
+   * @param string $url
+   **/
+  public function setUrl($url) {
     $this->url = $url;
     return $this;
   }
@@ -74,37 +87,58 @@ class RequestBuilder {
     return $this->url;
   }
 
-  public function setFollowLocation(bool $followlocation = true) {
+  /**
+   * @param bool $followlocation
+   **/
+  public function setFollowLocation($followlocation = true) {
     $this->followlocation = $followlocation;
     return $this;
   }
 
-  public function setEncoding(string $encoding) {
+  /**
+   * @param string $encoding
+   **/
+  public function setEncoding($encoding) {
     $this->encoding = $encoding;
     return $this;
   }
 
-  public function setUserAgent(string $useragent) {
+  /**
+   * @param string $useragent
+   **/
+  public function setUserAgent($useragent) {
     $this->useragent = $useragent;
     return $this;
   }
 
-  public function setAutoReferer(bool $autoreferer = true) {
+  /**
+   * @param bool $autoreferer
+   **/
+  public function setAutoReferer($autoreferer = true) {
     $this->autoreferer = $autoreferer;
     return $this;
   }
 
-  public function setConnectTimeout(int $time) {
+  /**
+   * @param int $time
+   **/
+  public function setConnectTimeout($time) {
     $this->connecttimeout = $time;
     return $this;
   }
 
-  public function setTimeout(int $time) {
+  /**
+   * @param int $time
+   **/
+  public function setTimeout($time) {
     $this->timeout = $time;
     return $this;
   }
 
-  public function setMaxRedirs(int $max) {
+  /**
+   * @param int $max
+   **/
+  public function setMaxRedirs($max) {
     $this->maxredirs = $max;
     return $this;
   }
