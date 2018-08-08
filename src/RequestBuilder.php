@@ -1,8 +1,8 @@
 <?php
 
-use ludovicm67\Strings\Strings;
-
 namespace ludovicm67\Request;
+
+use ludovicm67\Strings\Strings;
 
 class RequestBuilder {
 
