@@ -1,5 +1,7 @@
 <?php
 
+use ludovicm67\Strings\Strings;
+
 namespace ludovicm67\Request;
 
 class RequestBuilder {
@@ -22,6 +24,13 @@ class RequestBuilder {
    * @param array $options
    **/
   public function __construct($url = '', $options = []) {
+    $useragent = null;
+    if (isset($_SERVER['HTTP_USER_AGENT'])
+      && !empty($_SERVER['HTTP_USER_AGENT'])
+    ) {
+      $useragent = Strings::clean($_SERVER['HTTP_USER_AGENT']);
+    }
+    $this->useragent = $useragent;
     $this->url = $url;
     $this->setOptions($options);
   }

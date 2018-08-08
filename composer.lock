@@ -4,8 +4,49 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd0a98d19a5109d042259790895884f9",
-    "packages": [],
+    "content-hash": "d8f6a4772beb36d94c364fa330c8bf6d",
+    "packages": [
+        {
+            "name": "ludovicm67/strings",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ludovicm67/php-strings.git",
+                "reference": "2ef06310a6ba2b7de69a793185b670b93cbcc131"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ludovicm67/php-strings/zipball/2ef06310a6ba2b7de69a793185b670b93cbcc131",
+                "reference": "2ef06310a6ba2b7de69a793185b670b93cbcc131",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.3",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ludovicm67\\Strings\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ludovicm67",
+                    "email": "ludovicmuller1@gmail.com"
+                }
+            ],
+            "description": "Some useful functions for working with strings",
+            "time": "2017-10-02T20:16:54+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",

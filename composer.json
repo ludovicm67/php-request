@@ -21,6 +21,7 @@
   "minimum-stability": "stable",
   "require": {
     "php": "^7.0",
-    "ext-curl": "^7.0"
+    "ext-curl": "^7.0",
+    "ludovicm67/strings": "^1.0"
   }
 }
