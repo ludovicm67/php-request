@@ -21,4 +21,10 @@ class RequestTest extends TestCase {
     $this->assertFalse($request->isEmpty());
   }
 
+  public function testEmptyRequestResponse() {
+    $builder = new RequestBuilder('http://ok');
+    $request = new Request($builder);
+    $this->assertTrue($request->isEmpty());
+  }
+
 }
