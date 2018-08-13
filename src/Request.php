@@ -12,7 +12,16 @@ class Request {
 
   public function __construct(RequestBuilder $request) {
     if (!filter_var($request->getUrl(), FILTER_VALIDATE_URL)) {
-      throw new RequestException("Please use a valid URL!");
+      throw new RequestException('Please use a valid URL!');
+    }
+
+    if (!$request->allowedUnsecure()) {
+      $parsedUrl = parse_url($request->getUrl());
+      if (!isset($parsedUrl['scheme'])
+        || (!in_array($parsedUrl['scheme'], ['http', 'https']))
+      ) {
+        throw new RequestException('Request not allowed!');
+      }
     }
 
     $this->runRequest($request);
@@ -23,7 +32,7 @@ class Request {
     curl_setopt_array($ch, $request->getCurlOptions());
     $this->content = curl_exec($ch);
     if ($this->content === false) {
-      $this->content = "";
+      $this->content = '';
     } else {
       $this->empty = false;
     }

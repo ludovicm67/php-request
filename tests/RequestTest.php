@@ -27,4 +27,10 @@ class RequestTest extends TestCase {
     $this->assertTrue($request->isEmpty());
   }
 
+  public function testUnAllowedUrl() {
+    $builder = new RequestBuilder('file://path/to/my/file.txt');
+    $this->expectException(RequestException::class);
+    $request = new Request($builder);
+  }
+
 }

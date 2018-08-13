@@ -8,6 +8,7 @@ use ludovicm67\Request\RequestBuilder;
 class RequestBuilderTest extends TestCase {
 
   public function testDefaultOptions() {
+    unset($_SERVER['HTTP_USER_AGENT']);
     $builder = new RequestBuilder();
     $options = $builder->getOptions();
 
@@ -23,9 +24,30 @@ class RequestBuilderTest extends TestCase {
     $this->assertNull($options['encoding']);
     $this->assertNull($options['useragent']);
     $this->assertNull($options['postfields']);
+    $this->assertFalse($builder->allowedUnsecure());
+
+    // same, but with a definded user agent
+    $_SERVER['HTTP_USER_AGENT'] = 'MyUserAgent';
+    $builder = new RequestBuilder();
+    $options = $builder->getOptions();
+    $this->assertEquals('', $builder->getUrl());
+    $this->assertTrue($options['followlocation']);
+    $this->assertTrue($options['autoreferer']);
+    $this->assertFalse($options['post']);
+    $this->assertFalse($options['ssl_verifypeer']);
+    $this->assertEquals(120, $options['connecttimeout']);
+    $this->assertEquals(120, $options['timeout']);
+    $this->assertEquals(10, $options['maxredirs']);
+    $this->assertEquals(0, $options['ssl_verifyhost']);
+    $this->assertNull($options['encoding']);
+    $this->assertEquals('MyUserAgent', $options['useragent']);
+    $this->assertNull($options['postfields']);
+    $this->assertFalse($builder->allowedUnsecure());
+    unset($_SERVER['HTTP_USER_AGENT']);
   }
 
   public function testDefaultCurlOptions() {
+    unset($_SERVER['HTTP_USER_AGENT']);
     $builder = new RequestBuilder();
     $options = $builder->getCurlOptions();
 
@@ -45,6 +67,29 @@ class RequestBuilderTest extends TestCase {
     $this->assertNull($options[CURLOPT_ENCODING]);
     $this->assertNull($options[CURLOPT_USERAGENT]);
     $this->assertNull($options[CURLOPT_POSTFIELDS]);
+
+    // same, but with a definded user agent
+    $_SERVER['HTTP_USER_AGENT'] = 'MyUserAgent';
+    $builder = new RequestBuilder();
+    $options = $builder->getCurlOptions();
+
+    $this->assertContains(
+      'cache-control: no-cache',
+      $options[CURLOPT_HTTPHEADER]
+    );
+    $this->assertTrue($options[CURLOPT_RETURNTRANSFER]);
+    $this->assertTrue($options[CURLOPT_FOLLOWLOCATION]);
+    $this->assertTrue($options[CURLOPT_AUTOREFERER]);
+    $this->assertFalse($options[CURLOPT_POST]);
+    $this->assertFalse($options[CURLOPT_SSL_VERIFYPEER]);
+    $this->assertEquals(120, $options[CURLOPT_CONNECTTIMEOUT]);
+    $this->assertEquals(120, $options[CURLOPT_TIMEOUT]);
+    $this->assertEquals(10, $options[CURLOPT_MAXREDIRS]);
+    $this->assertEquals(0, $options[CURLOPT_SSL_VERIFYHOST]);
+    $this->assertNull($options[CURLOPT_ENCODING]);
+    $this->assertEquals('MyUserAgent', $options[CURLOPT_USERAGENT]);
+    $this->assertNull($options[CURLOPT_POSTFIELDS]);
+    unset($_SERVER['HTTP_USER_AGENT']);
   }
 
   public function testParameterUrl() {
@@ -366,4 +411,13 @@ class RequestBuilderTest extends TestCase {
     $this->assertEquals($data, $curl_options_chained[CURLOPT_POSTFIELDS]);
   }
 
+  public function testAllowUnsecure() {
+    $this->assertFalse(
+      (new RequestBuilder('http://example.com'))->allowedUnsecure()
+    );
+    $this->assertTrue(
+      ((new RequestBuilder('http://example.com'))->allowUnsecure())
+        ->allowedUnsecure()
+    );
+  }
 }

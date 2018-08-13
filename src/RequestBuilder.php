@@ -18,6 +18,7 @@ class RequestBuilder {
   private $postfields;
   private $ssl_verifyhost = 0;
   private $ssl_verifypeer = false;
+  private $allow_unsecure = false; // if false only allow http and https schemes
 
   /**
    * @param string $url
@@ -185,5 +186,14 @@ class RequestBuilder {
       CURLOPT_SSL_VERIFYHOST => $this->ssl_verifyhost,
       CURLOPT_SSL_VERIFYPEER => $this->ssl_verifypeer
     ];
+  }
+
+  public function allowUnsecure() {
+    $this->allow_unsecure = true;
+    return $this;
+  }
+
+  public function allowedUnsecure() {
+    return $this->allow_unsecure;
   }
 }
