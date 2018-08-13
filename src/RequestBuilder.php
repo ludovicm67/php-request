@@ -166,7 +166,7 @@ class RequestBuilder {
   }
 
   public function getCurlOptions() {
-    return [
+    $opts = [
       // needed
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_HTTPHEADER     => [
@@ -181,11 +181,16 @@ class RequestBuilder {
       CURLOPT_CONNECTTIMEOUT => $this->connecttimeout,
       CURLOPT_TIMEOUT        => $this->timeout,
       CURLOPT_MAXREDIRS      => $this->maxredirs,
-      CURLOPT_POST           => $this->post,
-      CURLOPT_POSTFIELDS     => $this->postfields,
       CURLOPT_SSL_VERIFYHOST => $this->ssl_verifyhost,
       CURLOPT_SSL_VERIFYPEER => $this->ssl_verifypeer
     ];
+
+    if ($this->post) {
+      $opts[CURLOPT_POST] = $this->post;
+      $opts[CURLOPT_POSTFIELDS] = $this->postfields;
+    }
+
+    return $opts;
   }
 
   public function allowUnsecure() {

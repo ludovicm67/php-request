@@ -11,7 +11,6 @@ class RequestBuilderTest extends TestCase {
     unset($_SERVER['HTTP_USER_AGENT']);
     $builder = new RequestBuilder();
     $options = $builder->getOptions();
-
     $this->assertEquals('', $builder->getUrl());
     $this->assertTrue($options['followlocation']);
     $this->assertTrue($options['autoreferer']);
@@ -58,7 +57,8 @@ class RequestBuilderTest extends TestCase {
     $this->assertTrue($options[CURLOPT_RETURNTRANSFER]);
     $this->assertTrue($options[CURLOPT_FOLLOWLOCATION]);
     $this->assertTrue($options[CURLOPT_AUTOREFERER]);
-    $this->assertFalse($options[CURLOPT_POST]);
+    $this->assertFalse(isset($options[CURLOPT_POST]));
+    $this->assertFalse(isset($options[CURLOPT_POSTFIELDS]));
     $this->assertFalse($options[CURLOPT_SSL_VERIFYPEER]);
     $this->assertEquals(120, $options[CURLOPT_CONNECTTIMEOUT]);
     $this->assertEquals(120, $options[CURLOPT_TIMEOUT]);
@@ -66,7 +66,6 @@ class RequestBuilderTest extends TestCase {
     $this->assertEquals(0, $options[CURLOPT_SSL_VERIFYHOST]);
     $this->assertNull($options[CURLOPT_ENCODING]);
     $this->assertNull($options[CURLOPT_USERAGENT]);
-    $this->assertNull($options[CURLOPT_POSTFIELDS]);
 
     // same, but with a definded user agent
     $_SERVER['HTTP_USER_AGENT'] = 'MyUserAgent';
@@ -80,7 +79,8 @@ class RequestBuilderTest extends TestCase {
     $this->assertTrue($options[CURLOPT_RETURNTRANSFER]);
     $this->assertTrue($options[CURLOPT_FOLLOWLOCATION]);
     $this->assertTrue($options[CURLOPT_AUTOREFERER]);
-    $this->assertFalse($options[CURLOPT_POST]);
+    $this->assertFalse(isset($options[CURLOPT_POST]));
+    $this->assertFalse(isset($options[CURLOPT_POSTFIELDS]));
     $this->assertFalse($options[CURLOPT_SSL_VERIFYPEER]);
     $this->assertEquals(120, $options[CURLOPT_CONNECTTIMEOUT]);
     $this->assertEquals(120, $options[CURLOPT_TIMEOUT]);
@@ -88,7 +88,6 @@ class RequestBuilderTest extends TestCase {
     $this->assertEquals(0, $options[CURLOPT_SSL_VERIFYHOST]);
     $this->assertNull($options[CURLOPT_ENCODING]);
     $this->assertEquals('MyUserAgent', $options[CURLOPT_USERAGENT]);
-    $this->assertNull($options[CURLOPT_POSTFIELDS]);
     unset($_SERVER['HTTP_USER_AGENT']);
   }
 
