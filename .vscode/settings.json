@@ -1,6 +1,0 @@
-{
-  "phpunit.execPath": "./vendor/bin/phpunit",
-  "phpunit.args": [
-    "--configuration", "./phpunit.xml"
-  ]
-}
