@@ -1,4 +1,4 @@
-name: "[PHP 8.0] Run tests"
+name: "Run tests"
 
 on:
   - push
@@ -10,12 +10,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.0"
+          php-version: "8.4"
           tools: composer
 
       - name: Validate composer.json and composer.lock
@@ -26,3 +26,6 @@ jobs:
 
       - name: Run tests
         run: ./vendor/bin/phpunit
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
